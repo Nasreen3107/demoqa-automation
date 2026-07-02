@@ -14,7 +14,6 @@ public class FormPage extends BasePage {
         js = (JavascriptExecutor) driver;
     }
 
-    // ================= LOCATORS =================
 
     @FindBy(xpath = "//span[text()='Practice Form']")
     WebElement practiceForm;
@@ -55,12 +54,10 @@ public class FormPage extends BasePage {
     @FindBy(id = "example-modal-sizes-title-lg")
     WebElement successPopup;
 
-    // ================= ACTION METHODS =================
 
     public void openForm() {
         js.executeScript("arguments[0].click();", practiceForm);
 
-        // ✅ wait for form to load
         ElementUtils.sendText(driver, firstName, ""); 
         firstName.clear();
     }

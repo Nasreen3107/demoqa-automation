@@ -1,13 +1,24 @@
-name: My First Workflow
+name: DemoQA Automation Build
 
 on:
   push:
 
 jobs:
-  hello:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Message
-        run: echo "Hello Nasreen"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Verify Maven
+        run: mvn -version
+
+      - name: Build Project
+        run: mvn clean test

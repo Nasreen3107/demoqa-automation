@@ -118,10 +118,10 @@ public class FormPage extends BasePage {
     
     public void submitForm() {
 
-        js.executeScript("window.scrollBy(0,500)");
-        ElementUtils.click(driver, submitBtn);
-    }
+        js.executeScript("arguments[0].scrollIntoView(true);", submitBtn);
 
+        js.executeScript("arguments[0].click();", submitBtn);
+    }
     public boolean isFormSubmitted() {
         return ElementUtils.isVisible(driver, successPopup);
     }

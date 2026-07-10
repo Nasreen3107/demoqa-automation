@@ -39,8 +39,8 @@ public class FormPage extends BasePage {
     @FindBy(id = "subjectsInput")
     WebElement subjects;
 
-    @FindBy(xpath = "//label[text()='Sports']")
-    WebElement hobbies;
+    //@FindBy(xpath = "//label[text()='Sports']")
+    //WebElement hobbies;
 
     @FindBy(id = "uploadPicture")
     WebElement upload;
@@ -81,10 +81,16 @@ public class FormPage extends BasePage {
         subjects.sendKeys(Keys.ENTER);
     }
 
-    public void selectHobby() {
-        ElementUtils.click(driver, hobbies);
-    }
+    public void selectHobby(String hobby) {
 
+        WebElement hobbyElement =
+                driver.findElement(
+                        By.xpath("//label[text()='" + hobby + "']")
+                );
+
+        ElementUtils.click(driver, hobbyElement);
+    }
+    
     public void uploadFile(String path) {
         upload.sendKeys(path);
     }
@@ -93,19 +99,23 @@ public class FormPage extends BasePage {
         ElementUtils.sendText(driver, address, addr);
     }
 
-    public void selectStateCity() {
+    public void selectStateCity(String state, String city) {
 
         js.executeScript("window.scrollBy(0,400)");
 
-        WebElement stateInput = driver.findElement(By.id("react-select-3-input"));
-        stateInput.sendKeys("NCR");
+        WebElement stateInput =
+                driver.findElement(By.id("react-select-3-input"));
+
+        stateInput.sendKeys(state);
         stateInput.sendKeys(Keys.ENTER);
 
-        WebElement cityInput = driver.findElement(By.id("react-select-4-input"));
-        cityInput.sendKeys("Delhi");
+        WebElement cityInput =
+                driver.findElement(By.id("react-select-4-input"));
+
+        cityInput.sendKeys(city);
         cityInput.sendKeys(Keys.ENTER);
     }
-
+    
     public void submitForm() {
 
         js.executeScript("window.scrollBy(0,500)");

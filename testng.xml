@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="TestSuite">
+<listeners>
+    <listener class-name="listeners.TestListener"/>
+</listeners>
   <test thread-count="5" name="RegressionTest">
     <classes>
       <class name="test.FormTest"/>

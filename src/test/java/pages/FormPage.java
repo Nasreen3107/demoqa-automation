@@ -14,51 +14,49 @@ public class FormPage extends BasePage {
         js = (JavascriptExecutor) driver;
     }
 
-
     @FindBy(xpath = "//span[text()='Practice Form']")
     WebElement practiceForm;
 
-    @FindBy(id = "firstName")
+    @FindBy(xpath = "//input[@id='firstName']")
     WebElement firstName;
 
-    @FindBy(id = "lastName")
+    @FindBy(xpath = "//input[@id='lastName']")
     WebElement lastName;
 
-    @FindBy(id = "userEmail")
+    @FindBy(xpath = "//input[@id='userEmail']")
     WebElement email;
 
     @FindBy(xpath = "//label[text()='Male']")
     WebElement gender;
 
-    @FindBy(id = "userNumber")
+    @FindBy(xpath = "//input[@id='userNumber']")
     WebElement mobile;
 
-    @FindBy(id = "dateOfBirthInput")
+    @FindBy(xpath = "//input[@id='dateOfBirthInput']")
     WebElement dob;
 
-    @FindBy(id = "subjectsInput")
+    @FindBy(xpath = "//input[@id='subjectsInput']")
     WebElement subjects;
 
     //@FindBy(xpath = "//label[text()='Sports']")
     //WebElement hobbies;
 
-    @FindBy(id = "uploadPicture")
+    @FindBy(xpath = "//input[@id='uploadPicture']")
     WebElement upload;
 
-    @FindBy(id = "currentAddress")
+    @FindBy(xpath = "//textarea[@id='currentAddress']")
     WebElement address;
 
-    @FindBy(id = "submit")
+    @FindBy(xpath = "//button[@id='submit']")
     WebElement submitBtn;
 
-    @FindBy(id = "example-modal-sizes-title-lg")
+    @FindBy(xpath = "//div[@id='example-modal-sizes-title-lg']")
     WebElement successPopup;
-
 
     public void openForm() {
         js.executeScript("arguments[0].click();", practiceForm);
 
-        ElementUtils.sendText(driver, firstName, ""); 
+        ElementUtils.sendText(driver, firstName, "");
         firstName.clear();
     }
 
@@ -90,7 +88,7 @@ public class FormPage extends BasePage {
 
         ElementUtils.click(driver, hobbyElement);
     }
-    
+
     public void uploadFile(String path) {
         upload.sendKeys(path);
     }
@@ -104,24 +102,29 @@ public class FormPage extends BasePage {
         js.executeScript("window.scrollBy(0,400)");
 
         WebElement stateInput =
-                driver.findElement(By.id("react-select-3-input"));
+                driver.findElement(
+                        By.xpath("//input[@id='react-select-3-input']")
+                );
 
         stateInput.sendKeys(state);
         stateInput.sendKeys(Keys.ENTER);
 
         WebElement cityInput =
-                driver.findElement(By.id("react-select-4-input"));
+                driver.findElement(
+                        By.xpath("//input[@id='react-select-4-input']")
+                );
 
         cityInput.sendKeys(city);
         cityInput.sendKeys(Keys.ENTER);
     }
-    
+
     public void submitForm() {
 
         js.executeScript("arguments[0].scrollIntoView(true);", submitBtn);
 
         js.executeScript("arguments[0].click();", submitBtn);
     }
+
     public boolean isFormSubmitted() {
         return ElementUtils.isVisible(driver, successPopup);
     }

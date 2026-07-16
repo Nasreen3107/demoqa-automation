@@ -5,6 +5,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,19 +16,27 @@ public class BaseTest {
 
     protected WebDriver driver;
     protected Properties prop;
+    
+
+    protected static final Logger logger =
+              LogManager.getLogger(BaseTest.class);
+
 
     @BeforeMethod
     public void setup() throws IOException {
 
-        System.out.println("SETUP RUNNING");
+        logger.info("Browser setup started");
 
         prop = new Properties();
-        FileInputStream fis = new FileInputStream("src/test/resources/config.properties");
+        FileInputStream fis =
+                new FileInputStream("src/test/resources/config.properties");
+
         prop.load(fis);
+
+        logger.info("Configuration file loaded");
 
         ChromeOptions options = new ChromeOptions();
 
-        // Required for GitHub Actions / Linux runners
         options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
@@ -35,16 +45,25 @@ public class BaseTest {
 
         driver = new ChromeDriver(options);
 
+        logger.info("Chrome browser launched");
+
         driver.manage().window().maximize();
 
         driver.get(prop.getProperty("url"));
-    }
 
+        logger.info("Navigated to URL: " +
+                prop.getProperty("url"));
+    }
     @AfterMethod
     public void tearDown() {
 
         if (driver != null) {
+
+            logger.info("Closing browser");
+
             driver.quit();
+
+            logger.info("Browser closed");
         }
     }
 }

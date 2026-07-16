@@ -16,6 +16,8 @@ public class FormTest extends BaseTest {
         FormPage form = new FormPage(driver);
 
         form.openForm();
+        
+        logger.info("Entering user details");
 
         form.fillBasicDetails(
                 prop.getProperty("firstname"),
@@ -45,7 +47,12 @@ public class FormTest extends BaseTest {
                 prop.getProperty("city")
         );
 
+        logger.info("User details entered successfully");
+
         form.submitForm();
+        
+        logger.info("Form submitted successfully");
+
 
         Assert.assertTrue(form.isFormSubmitted(), "Form not submitted!");
     }
